@@ -8,11 +8,10 @@
 
 ### 새로 알게 된 점 / 탐구한 내용
 
-- `Enum`을 명시적으로 `int`로 캐스팅해 산술 연산 가능  
-  ```csharp
+- `Enum`을 명시적으로 `int`로 캐스팅해 산술 연산 가능
   MyEnum current = MyEnum.First;
   current = (MyEnum)((int)current + 1);
-  ```
+  
 - switch문이나 배열 인덱싱 외에도 `enum`을 유동적으로 다룰 수 있는 방법이라는 걸 체감  
 
 ### 느낀 점
