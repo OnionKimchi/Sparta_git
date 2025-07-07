@@ -1,0 +1,55 @@
+# 학습리포트 2025-07-07
+
+## 오늘의 활동
+
+- 스테이지 데이터를 기반으로 배틀 씬에 진입할 때 필요한 데이터를 DTO(Data Transfer Object) 구조로 정리함
+- 전투 결과 또한 DTO 형태로 관리하여, 전투 결과를 다른 시스템에 안정적으로 전달할 수 있도록 설계
+- 실제 프로젝트 내에서 아래 두 개의 DTO 클래스를 구현함
+
+```csharp
+public class BattleStartData // Data Transfer Object (DTO) for battle start data
+{
+    public List<BattleCharacter> battleCharacters;
+    public EnemyData selectedEnemy;
+    public List<ArtifactData> artifacts;
+    public List<StagmaData> stagmas;
+
+    public BattleStartData(StageSaveData stageSaveData)
+    {
+        this.battleCharacters = new List<BattleCharacter>(stageSaveData.battleCharacters);
+        this.selectedEnemy = stageSaveData.selectedEnemy;
+        this.artifacts = new List<ArtifactData>(stageSaveData.artifacts);
+        this.stagmas = new List<StagmaData>(stageSaveData.stagmas);
+    }
+}
+
+public class BattleResultData // Data Transfer Object (DTO) for battle result data 
+{
+    public bool isVictory;
+    public List<BattleCharacter> battleCharacters;
+
+    public BattleResultData(bool isVictory, List<BattleCharacter> battleCharacters)
+    {
+        this.isVictory = isVictory;
+        this.battleCharacters = battleCharacters;
+    }
+}
+```
+
+## 새로 알게 된 점 / 탐구한 내용
+
+- StageSaveData → BattleStartData → BattleManager 순으로 데이터를 전달하는 방식이 명확해졌음
+- 기존에 ScriptableObject나 다른 매니저 간 직접 참조 방식으로 전달하던 정보를 DTO로 정리하면서 결합도는 낮추고, 재사용성과 가독성은 향상시킴 
+- 내가 스테이지의 구조를 바꿀 때마다 배틀 담당 팀원도 같이 코드를 고쳐야 하는 문제를 해결함
+- 결과 또한 `BattleResultData`로 포장함으로써, 다른 시스템(UI, 보상처리 등)으로의 데이터 전달 명확화
+
+### 느낀 점
+
+- 협업에서 DTO는 단순히 값만 담는 객체가 아닌, 시스템 간 인터페이스 역할을 하며 의존성을 줄이는 데 필수적임
+- DTO 구조를 쓰지 않을 당시에 서로 간의 의존성이 높아서 구조 변화 시 머지 문제 생기던 부분이 해결될 것이라고 예상함
+- 특히 Unity처럼 다양한 시스템이 얽히는 구조에서는 DTO 패턴이 유지보수의 핵심이 될 수 있음
+
+### 내일 학습 계획
+
+- 스테이지 매니저의 부족한 부분을 보완
+- 전투 결과 데이터를 활용한 보상 처리 로직 및 게임 진행 흐름 연결 구조 설계하기
