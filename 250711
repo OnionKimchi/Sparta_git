@@ -5,9 +5,8 @@
 - `IEnemy` 인터페이스 기반으로 에너미 애니메이션 메서드 구조 정립
 - 배틀 담당 팀원이 `BattleManager`에서 사용할 수 있도록 공통 메서드 형태로 전달 가능한 구조 구현
 - 스킬 메서드는 `UseActiveSkill(int skillIndex, int targetIndex)` 형태로 호출
-- 각 스킬은 `List<Action<Vector3>> ActiveSkills`에 인덱스에 따라 바인딩되며,  
-  Awake()에서 액션 리스트에 스킬 메서드들을 등록하는 구조
-- 기획자에게 스킬 인덱스를 명확히 정해달라는 요구 전달
+- 각 스킬은 `List<Action<Vector3>> ActiveSkills`에 인덱스에 따라 바인딩되며,  타겟인덱스는 벡터3로 변환하며 Awake()에서 액션 리스트에 스킬 메서드들을 등록하는 구조
+- 원활한 연결을 위해 기획자에게 스킬 인덱스를 명확히 정해달라는 요구 전달
 
 ## 새로 알게 된 점 / 탐구한 내용
 
